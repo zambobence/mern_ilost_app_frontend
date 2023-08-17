@@ -1,0 +1,11 @@
+.modal {
+    border: 1px solid red;
+    padding: 1rem;
+    border-radius: .3rem;
+    position: absolute;
+    top: 30vh;
+    left: 10%;
+    width: 80%;
+    z-index: 100;
+    background-color: yellow;
+}

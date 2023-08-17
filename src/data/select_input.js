@@ -1,0 +1,27 @@
+export const typeArray = [
+    'Type',
+    'phone',
+    'laptop',
+    'clothes',
+    'key',
+    'wallet',
+    'etc',
+]
+export const colorArray = [
+    'Color',
+    'silver',
+    'gray',
+    'white',
+    'maroon',
+    'red',
+    'purple',
+    'fuchsia',
+    'green',
+    'lime',
+    'olive',
+    'yellow',
+    'navy',
+    'blue',
+    'teal',
+    'aqua',
+]
