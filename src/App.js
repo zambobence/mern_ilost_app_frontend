@@ -7,6 +7,7 @@ import AddItem from './item/page/AddItem';
 import ItemDetails from './item/page/ItemDetails';
 import Header from './header/Header';
 import BrowseItem from './item/page/BrowseItem';
+import Profile from './user/pages/Profile';
 function App() {
 
   const [isLoggedIn, setIsLoggedIn] = useState(true)
@@ -20,6 +21,7 @@ function App() {
         <Route path="/add-item" element={<AddItem />} />
         <Route path="/browse-item" element={<BrowseItem />} />
         <Route path="/item/:itemId" element={<ItemDetails />} />
+        <Route path="/user/:userId" element={<Profile />} />
       </Routes>
     </Router>
     </>
