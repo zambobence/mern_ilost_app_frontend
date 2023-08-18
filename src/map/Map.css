@@ -2,3 +2,12 @@
     height: 300px;
     overflow: hidden;
 }
+
+@media (min-width: 780px){
+
+    .map-container {
+        height: 60vh;
+        width: 100%;
+        position: relative;
+    }
+}

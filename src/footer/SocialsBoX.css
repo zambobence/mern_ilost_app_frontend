@@ -1,0 +1,16 @@
+.socials-box {
+    margin: 1rem;
+}
+
+.socials-box a {
+    display: inline-block;
+    margin: .3rem 1rem;
+    color: var(--default-font)
+}
+
+.socials-box a:focus,
+.socials-box a:hover {
+    color: var(--spinner-color);
+    transform: translateY(-10%);
+
+}

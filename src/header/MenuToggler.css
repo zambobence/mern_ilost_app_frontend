@@ -1,0 +1,27 @@
+.menu-toggler {
+    cursor: pointer;
+    justify-self: flex-end;
+}
+
+.menu-toggler span {
+    display: block;
+    width: 1.4rem;
+    height: .2rem;
+    border: 1px solid white;
+    background-color: white;
+    margin-bottom: .2rem;
+    border-radius: .3rem;
+}
+
+.menu-toggler:focus span
+.menu-toggler:hover span {
+    background-color: var(--accent-color);
+    border-color: var(--accent-color);
+}
+
+
+@media (min-width: 780px){
+    .menu-toggler {
+        display: none;
+    }
+}

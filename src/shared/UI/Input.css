@@ -1,0 +1,58 @@
+input {
+    border: none;
+    border-bottom: 1px solid transparent;
+}
+
+input:focus{
+    outline: none;
+    color: var(--focus-input);
+}
+
+.input-controller {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 300px;
+    margin-bottom: 1rem;
+}
+
+
+.input-controller label {
+    font-size: inherit;
+    margin-bottom: .5rem;
+    color: var(--default-font);
+}
+
+.searchbar-autocomplete-field,
+select,
+.input-controller input {
+    padding: .4rem;
+    font-size: inherit;
+    background-color: var(--input-background);
+    color: var(--default-font);
+    border-radius: .2rem;
+    margin: .2rem 0 .3rem;
+}
+
+.input-controller.invalid input{
+    border-bottom: 1px solid var(--invalid-input);
+    background-color: var(--invalid-input-bg);
+}
+
+.input-controller.invalid label,
+.input-controller.invalid input {
+    color: var(--invalid-input);
+}
+
+.input-controller.invalid label+p,
+
+.input-controller.invalid label+p{
+    color: var(--invalid-input);
+}
+
+
+select option {
+    padding: 8px;
+}
+
+

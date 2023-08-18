@@ -12,7 +12,6 @@ import './Map.css'
 function MapComponent(props) {
  	const [ libraries ] = useState(['places']);
 	const apiKey = process.env.REACT_APP_GOOGLE_MAPS_API_KEY
-	console.log(apiKey)
     const containerStyle = {
         width: '100%',
         height: '100%',
@@ -22,7 +21,7 @@ function MapComponent(props) {
 	// creates an array of marker components
 	// if the browseMode it will create a marker for each item
 	let markerObjectArray = null
-	if (props.browseMode && props?.itemArray.length !== 0) {
+	if (props.browseMode && props?.itemArray && props?.itemArray.length !== 0) {
 		markerObjectArray = props.itemArray.map((e) => <MarkerF position={e.coordinateObject} key={e.id} onClick={() => {}}/>)
 	}
 
@@ -59,7 +58,7 @@ function MapComponent(props) {
 				lng: place.geometry.location.lng(),
             }
 			// it centers the map to the new coordinates
-            props.centerMapByClick(newCoordinates.lat, newCoordinates.lng)
+            props.handleClick(newCoordinates.lat, newCoordinates.lng)
         }
 	}
 
@@ -94,7 +93,7 @@ function MapComponent(props) {
 					center={props.coordinates}
 					zoom={12}
 					onClick={props.cardMode ? undefined : (e) => {
-                        props.centerMapByClick(e.latLng.lat(), e.latLng.lng());
+                        props.handleClick(e.latLng.lat(), e.latLng.lng());
                     }}
 				>
 					{props.browseMode ? radiusElement : null }

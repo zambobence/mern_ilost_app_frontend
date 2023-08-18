@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import useInput from '../../shared/hooks/use-input'
 import Input from '../../shared/UI/Input'
 import { colorArray, typeArray } from '../../data/select_input'
@@ -12,9 +12,13 @@ import useHttpClient from '../../shared/hooks/use-http'
 import LoadingComponent from '../../shared/UI/LoadingComponent'
 import useMap from '../../shared/hooks/use-map'
 import Modal from '../../shared/UI/Modal'
+import AuthCtx from '../../shared/context/auth-context'
+import LostToggler from './LostToggler'
+import Button from '../../shared/UI/Button'
 
 export default function ItemFormComponent() {
 
+    const [lostValue, setLostValue] = useState(true)
     const {value: titleValue, hasError: titleHasError, inputChangeHandler: titleChangeHandler, inputBlurHandler: titleBlurHandler} = 
         useInput((title) => title.trim() !== "")
     const {value: colorValue, hasError: colorHasError, selectChangeHandler: colorChangeHandler, reset: colorReset} = 
@@ -23,7 +27,12 @@ export default function ItemFormComponent() {
         useSelect(typeArray[0])
 
     const {isLoading, errorStatus, clearError, sendRequest} = useHttpClient()
-    const {coordinates, radius, radiusChangeHandler, handleChangeCoordinates} = useMap()
+    const {coordinates, radius, handleChangeCoordinates} = useMap()
+    const {token} = useContext(AuthCtx)
+
+    const toggleLost = () => {
+        setLostValue(prevState => !prevState)
+    }
 
     useEffect(() => {
         getUserCoordinates()
@@ -43,8 +52,8 @@ export default function ItemFormComponent() {
         coordinates: coordinates,
         creator: '64dba9c3381746f82d40948e'
     }
-    sendRequest('http://localhost:5000/add-item', 'POST', {}, data)
-  }
+    sendRequest('http://localhost:5000/add-item', 'POST', {'Authorization': `Bearer ${token}`}, data)
+}
 
 
     return (
@@ -53,6 +62,7 @@ export default function ItemFormComponent() {
         {errorStatus && <Modal show={errorStatus} clearModal={clearError} content={errorStatus} />}
         <Container>
             <form onSubmit={submitHandler}>
+                <LostToggler lost={lostValue} toggleLost={toggleLost} />
                 <Input
                     label="Title"
                     id="title"
@@ -90,7 +100,7 @@ export default function ItemFormComponent() {
                     handleClick={handleChangeCoordinates}
                     inputMode
                 />
-                <button type="submit">Submit</button>
+                <Button style={{marginTop: '1rem'}} type="submit">Submit</Button>
             </form>
         </Container>
     </>

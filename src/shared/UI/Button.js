@@ -3,7 +3,7 @@ import './Button.css'
 
 export default function Button(props) {
   return (
-    <button onClick={props.onClick}>
+    <button style={{...props.style}}onClick={props.onClick} className={`${props.inverse ? "inverse" :""}`}>
         {props.children}
     </button>
   )

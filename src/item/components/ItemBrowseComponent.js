@@ -11,6 +11,7 @@ import LoadingComponent from '../../shared/UI/LoadingComponent'
 import useMap from '../../shared/hooks/use-map'
 import Modal from '../../shared/UI/Modal'
 import InputRange from '../../shared/UI/InputRange'
+import LostToggler from './LostToggler'
 
 export default function ItemBrowseComponent(props) {
 
@@ -20,11 +21,15 @@ export default function ItemBrowseComponent(props) {
         useSelect(typeArray[0])
 
     const [lostValue, setLostValue] = useState(true)
+    const [itemArray, setItemArray] = useState([])
     const {isLoading, errorStatus, clearError, sendRequest} = useHttpClient()
     const {coordinates, radius, radiusChangeHandler, handleChangeCoordinates} = useMap()
 
+    const toggleLost = () => {
+        setLostValue(prevState => !prevState)
+    }
+
     // using it to store the retrieved items from the backend
-    const [itemArray, setItemArray] = useState([])
 
     const fetchItems = async () => {
         const data = {
@@ -33,8 +38,14 @@ export default function ItemBrowseComponent(props) {
         }
         let url = 'http://localhost:5000/items?' + queryBuilder()
         const loadedItems = await sendRequest(url, 'POST', {}, data)
-        props.handleLoadedItems(loadedItems?.items)
-        setItemArray(loadedItems?.items)
+        if (loadedItems?.items){
+            props.handleLoadedItems(loadedItems?.items)
+            setItemArray(loadedItems?.items)
+        }
+        else {
+            props.handleLoadedItems([])
+            setItemArray([])
+        }
     }
 
     useEffect(() => {
@@ -86,8 +97,8 @@ const submitHandler = (event) => {
         <>
             {isLoading && <LoadingComponent />}
             {errorStatus && <Modal show={errorStatus} clearModal={clearError} content={errorStatus} />}
-            <Container>
                 <form onSubmit={submitHandler}>
+                    <LostToggler lost={lostValue} toggleLost={toggleLost} />
                     <Select
                         label="Color"
                         id="color"
@@ -106,16 +117,15 @@ const submitHandler = (event) => {
                         onChange={typeChangeHandler}
                         value={typeValue}
                     />
-                    <InputRange value={radius} onChange={radiusChangeHandler} />
+                    <InputRange id='radius' label='Radius' value={radius} onChange={radiusChangeHandler} />
                     <Map
                         browseMode={true}
                         radius={Number(radius)}
                         coordinates={coordinates}
-                        centerMapByClick={handleChangeCoordinates}
+                        handleClick={handleChangeCoordinates}
                         itemArray={itemArray}
                     />
                 </form>
-            </Container>
         </>
     )
 }

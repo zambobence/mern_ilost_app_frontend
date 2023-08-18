@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import useHttpClient from '../../shared/hooks/use-http'
 import LoadingComponent from '../../shared/UI/LoadingComponent'
@@ -7,16 +7,19 @@ import ItemImage from '../components/ItemImage'
 import Container from '../../shared/UI/Container'
 import CreatorDashBoard from '../components/CreatorDashBoard'
 import Map from '../../map/Map'
+import AuthCtx from '../../shared/context/auth-context'
+import CardContent from '../components/CardContent'
+import Grid from '../../shared/UI/Grid'
 
 export default function ItemDetails() {
+    const {userId} = useContext(AuthCtx)
     const {itemId} = useParams()
     const [itemData, setItemData] = useState({})
     const {isLoading, errorStatus, clearError, sendRequest} = useHttpClient()
     const navigate = useNavigate()
 
     useEffect(() => {
-        console.log(itemId)
-        const fetchItem = async () => {
+          const fetchItem = async () => {
             const loadedItem = await sendRequest('http://localhost:5000/item/' + itemId)
             setItemData(loadedItem?.item)
         }
@@ -29,23 +32,22 @@ export default function ItemDetails() {
     }
 
     let isCreator = false
-    isCreator = itemData.creator === '64dba9c3381746f82d40948e'
+    isCreator = itemData?.creator === userId
 
   return (
     <>
         {isLoading && <LoadingComponent />}
         {errorStatus && <Modal show={errorStatus} clearModal={clearError} content={errorStatus} />}
         <Container>
-            <ItemImage src={itemData.imageUrl} alt={itemData.title}/>
-            <h1>{itemData.title}</h1>
-            <h2>{itemData.type}</h2>
-            <h2>{itemData.color}</h2>
-            <h2>{itemData.timeLost}</h2>
-            <h2>{itemData.lost}</h2>
-            <h2>{itemData.creator}</h2>
-            {isCreator ? <CreatorDashBoard
-                handleDelete={deleteItem} /> : null}
-            <Map cardMode coordinates={itemData.coordinateObject}/>
+            <Grid>
+                <div className='col'>
+                    <ItemImage src={itemData.imageUrl} alt={itemData.title}/>
+                    <CardContent item={itemData} />
+                    {isCreator ? <CreatorDashBoard
+                        handleDelete={deleteItem} /> : null}
+                </div>
+                <Map cardMode coordinates={itemData.coordinateObject}/>
+            </Grid>
         </Container>
     </>
   )
