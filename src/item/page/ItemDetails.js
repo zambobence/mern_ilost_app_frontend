@@ -20,14 +20,14 @@ export default function ItemDetails() {
 
     useEffect(() => {
           const fetchItem = async () => {
-            const loadedItem = await sendRequest('http://localhost:5000/item/' + itemId)
+            const loadedItem = await sendRequest('https://mern-ilost-backend.onrender.com/item/' + itemId)
             setItemData(loadedItem?.item)
         }
         fetchItem()
     },[])
 
     const deleteItem = async () => {
-        await sendRequest('http://localhost:5000/item/' + itemId, 'DELETE')
+        await sendRequest('https://mern-ilost-backend.onrender.com/item/' + itemId, 'DELETE')
         navigate('/browse-item')
     }
 

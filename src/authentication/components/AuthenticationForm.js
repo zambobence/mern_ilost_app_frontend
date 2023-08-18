@@ -30,7 +30,7 @@ export default function AuthenticationForm(props) {
         if (loginMode){
             try {
             const responseData = await sendRequest(
-                "http://localhost:5000/login",
+                "https://mern-ilost-backend.onrender.com/login",
                 "POST",
                 {},
                 {
@@ -44,7 +44,7 @@ export default function AuthenticationForm(props) {
         } else {
             try {
             const responseData = await sendRequest(
-                "http://localhost:5000/register",
+                "https://mern-ilost-backend.onrender.com/register",
                 "POST",
                 {},
                 {

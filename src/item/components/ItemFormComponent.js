@@ -52,7 +52,7 @@ export default function ItemFormComponent() {
         coordinates: coordinates,
         creator: '64dba9c3381746f82d40948e'
     }
-    sendRequest('http://localhost:5000/add-item', 'POST', {'Authorization': `Bearer ${token}`}, data)
+    sendRequest('https://mern-ilost-backend.onrender.com/add-item', 'POST', {'Authorization': `Bearer ${token}`}, data)
 }
 
 
