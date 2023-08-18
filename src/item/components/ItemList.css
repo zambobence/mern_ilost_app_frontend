@@ -33,6 +33,7 @@
         grid-template-columns: repeat(2, 1fr);
         grid-template-rows: auto;
         gap: .5rem;
+        overflow-x: hidden;
     }
 
     .no-items {
@@ -43,7 +44,7 @@
     }
 }
 
-@media (min-width: 900px) {
+@media (min-width: 1024px) {
     .item-list {
         grid-template-columns: repeat(3, 1fr);
     }

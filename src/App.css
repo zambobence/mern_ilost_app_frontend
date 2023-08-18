@@ -41,13 +41,14 @@ ul {
   margin: 0 auto
 }
 
+.authentication-form {
+  width: fit-content;
+}
+
 @media (min-width: 780px){
   .grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
+    gap: .5rem
   }
-}
-
-.authentication-form {
-  width: fit-content;
 }

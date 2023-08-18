@@ -3,6 +3,11 @@
     overflow: hidden;
 }
 
+.searchbar-autocomplete-field {
+    width: 100%;
+    max-width: 300px;
+}
+
 @media (min-width: 780px){
 
     .map-container {

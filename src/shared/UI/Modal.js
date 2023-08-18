@@ -8,8 +8,8 @@ export default function Modal(props) {
   <>
     <BackDrop show={props.show} clearModal={props.clearModal} />
       <div className='modal' style={{display: props.show ? "block" : "none"}}>
-        <h1>Modal</h1>
-        {props.content && <h2>{props.content}</h2>}
+        <h2>Error</h2>
+        {props.content && <p>{props.content}</p>}
         <Button onClick={props.clearModal}>Close</Button>
       </div>
   </>

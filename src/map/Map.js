@@ -6,25 +6,25 @@ import {
     Autocomplete,
     CircleF,
 } from '@react-google-maps/api'
-
 import './Map.css'
 
+import phoneIcon from '../assets/icons/phoneIcon.png'
+import clothesIcon from '../assets/icons/clothesIcon.png'
+import laptopIcon from '../assets/icons/laptopIcon.png'
+import keyIcon from '../assets/icons/keyIcon.png'
+import walletIcon from '../assets/icons/walletIcon.png'
+import etcIcon from '../assets/icons/etcIcon.png'
+
 function MapComponent(props) {
- 	const [ libraries ] = useState(['places']);
+	const [ libraries ] = useState(['places']);
+	const [searchResult, setSearchResult] = useState('Result: none')
 	const apiKey = process.env.REACT_APP_GOOGLE_MAPS_API_KEY
-    const containerStyle = {
+	
+	const containerStyle = {
         width: '100%',
         height: '100%',
         position: 'relative',
     }
-
-	// creates an array of marker components
-	// if the browseMode it will create a marker for each item
-	let markerObjectArray = null
-	if (props.browseMode && props?.itemArray && props?.itemArray.length !== 0) {
-		markerObjectArray = props.itemArray.map((e) => <MarkerF position={e.coordinateObject} key={e.id} onClick={() => {}}/>)
-	}
-
 
 	const currentLocationOptions = {
 		strokeColor: '#007ebd',
@@ -33,6 +33,30 @@ function MapComponent(props) {
 		fillColor: '#007ebd',
 		fillOpacity: 0.35,
 	}
+
+	const markerObj = {
+		phone: phoneIcon,
+		clothes: clothesIcon,
+		laptop: laptopIcon,
+		key: keyIcon,
+		wallet: walletIcon,
+		etc: etcIcon,
+	}
+
+	// creates an array of marker components
+	// if the browseMode it will create a marker for each item
+	let markerObjectArray = null
+	if (props.browseMode && props?.itemArray && props?.itemArray.length !== 0) {
+		markerObjectArray = props.itemArray.map((e) => 
+			<MarkerF 
+				position={e.coordinateObject}
+				icon={markerObj[e?.type]}
+				key={e.id} 
+				onClick={() => {}}
+			/>
+		)
+	}
+
 
 	const radiusElement = (
 		<CircleF
@@ -43,8 +67,10 @@ function MapComponent(props) {
 		/>
 	)
 
-    const [searchResult, setSearchResult] = useState('Result: none')
 
+
+
+   
     const onLoad = (autocomplete) => {
 		setSearchResult(autocomplete)
 	}

@@ -14,17 +14,6 @@ import { useState } from 'react';
 function App() {
 
   const {token, login, logout, userId} = useAuth()
-  const [showMenu, setShowMenu] = useState(false)
-
-  const toggleMenu = () => {
-    setShowMenu(prevState => !prevState)
-  }
-
-  const closeMenu = () => {
-    console.log('Close menu clicked')
-    setShowMenu(false)
-  }
-
 
   let routes
   if (token){
@@ -56,11 +45,7 @@ function App() {
         userId: userId
       }}>
       <Router>
-      <Header 
-        show={showMenu} 
-        toggleMenu={toggleMenu}
-        closeMenu={closeMenu} 
-      />
+      <Header />
         {routes}
       <Footer />
       </Router>

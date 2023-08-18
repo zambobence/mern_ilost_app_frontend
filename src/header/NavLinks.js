@@ -24,7 +24,7 @@ export default function NavLinks(props) {
 
 
   return (
-    <div className='nav-links' onClick={props?.closeMenu}>
+    <div className='nav-links' onClick={props?.onClick}>
       {isLoggedIn ? protectedNavLinks : publicNavLinks}
     </div>
   )

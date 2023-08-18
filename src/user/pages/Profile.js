@@ -10,6 +10,8 @@ import PersonalData from '../components/PersonalData'
 import AuthCtx from '../../shared/context/auth-context'
 import './Profile.css'
 import Grid from '../../shared/UI/Grid'
+import Avatar from '../components/Avatar'
+import Title from '../../shared/UI/Title'
 
 export default function Profile() {
     const {userId} = useParams()
@@ -45,11 +47,15 @@ export default function Profile() {
                 <Container>
                     <Grid>
                         <div className='col-1'>
-                            <h1>Profile</h1>
+                            <Title>Profile</Title>
+                            <Avatar />
                             <PersonalData userData={userData} />
                             <Button style={{marginTop: "1rem"}} onClick={deleteProfile}>Delete Profile</Button>
                         </div>
-                        <ItemList items={userData.items} />
+                        <div className='col-2'>
+                            <Title>Your Items</Title>
+                            <ItemList items={userData.items} />
+                        </div>
                     </Grid>
                 </Container>
             </>
