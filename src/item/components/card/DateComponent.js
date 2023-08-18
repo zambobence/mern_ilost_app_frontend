@@ -13,13 +13,12 @@ const DateComponent = ({date}) => {
         else {
             const formattedDate = format(unixDate, 'yyyy-MM-dd')
             return (
-            <p>
-                <i aria-label='date' className="fa-solid fa-calendar"></i>
-                {formattedDate}
-            </p>
-            )    
+                <p>
+                    <i aria-label='date' className="fa-solid fa-calendar"></i>
+                    {formattedDate}
+                </p>
+        )}
     }
-    }   
 }
 
 export default DateComponent

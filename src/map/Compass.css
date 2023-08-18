@@ -1,0 +1,8 @@
+.compass {
+    font-size: 1.3rem;
+    cursor: pointer;
+}
+
+.compass:hover {
+    color: var(--accent-color);
+}

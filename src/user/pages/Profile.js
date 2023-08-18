@@ -22,7 +22,7 @@ export default function Profile() {
     useEffect(() => {
         const fetchItem = async () => {
         const loadedItem = await sendRequest(
-            `http://localhost:5000/user/${userId}`,
+            `https://mern-ilost-backend.onrender.com/user/${userId}`,
             'GET',
             {'Authorization': `Bearer ${token}`})
             setUserData(loadedItem?.user)
@@ -32,7 +32,7 @@ export default function Profile() {
 
     const deleteProfile = async () => {
         sendRequest(
-            `http://localhost:5000/user/${userId}`,
+            `https://mern-ilost-backend.onrender.com/user/${userId}`,
             'DELETE',
             {'Authorization': `Bearer ${token}`}
         )

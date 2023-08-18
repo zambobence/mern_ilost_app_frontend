@@ -1,10 +1,10 @@
 import React from 'react'
-import ItemFormComponent from '../components/ItemFormComponent'
+import AddItemComponent from '../components/AddItemComponent'
 
 export default function AddItem() {
   return (
     <div>
-        <ItemFormComponent />
+        <AddItemComponent />
     </div>
   )
 }

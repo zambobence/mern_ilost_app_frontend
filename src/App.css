@@ -45,10 +45,25 @@ ul {
   width: fit-content;
 }
 
+.flex {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.container {
+  width: 90%;
+  margin: 0 auto;
+}
+
 @media (min-width: 780px){
   .grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: .5rem
   }
+}
+
+.accent {
+  color: var(--accent-color);
 }

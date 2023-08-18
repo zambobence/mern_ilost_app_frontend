@@ -1,0 +1,13 @@
+.img-preview {
+    max-width: 300px;
+   overflow: hidden;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+
+.img-preview img {
+    display: block;
+    width: 100%;
+    object-fit: cover;
+
+}

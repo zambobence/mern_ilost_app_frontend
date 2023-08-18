@@ -8,7 +8,7 @@ import Container from '../../shared/UI/Container'
 import CreatorDashBoard from '../components/CreatorDashBoard'
 import Map from '../../map/Map'
 import AuthCtx from '../../shared/context/auth-context'
-import CardContent from '../components/CardContent'
+import CardContent from '../components/card/CardContent'
 import Grid from '../../shared/UI/Grid'
 
 export default function ItemDetails() {

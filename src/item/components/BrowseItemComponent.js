@@ -3,7 +3,6 @@ import { colorArray, typeArray } from '../../data/select_input'
 import Select from '../../shared/UI/Select'
 import useSelect from '../../shared/hooks/use-select'
 import Map from '../../map/Map'
-import Container from '../../shared/UI/Container'
 import { useEffect } from 'react'
 import getUserCoordinates from '../../shared/utils/geo-location'
 import useHttpClient from '../../shared/hooks/use-http'
@@ -12,8 +11,9 @@ import useMap from '../../shared/hooks/use-map'
 import Modal from '../../shared/UI/Modal'
 import InputRange from '../../shared/UI/InputRange'
 import LostToggler from './LostToggler'
+import Compass from '../../map/Compass'
 
-export default function ItemBrowseComponent(props) {
+export default function BrowseItemComponent(props) {
 
     const {value: colorValue, selectChangeHandler: colorChangeHandler, reset: colorReset} = 
         useSelect(colorArray[0])
@@ -48,12 +48,13 @@ export default function ItemBrowseComponent(props) {
         }
     }
 
+    const centerToCurrentPosition = async () => {
+        const coordinates = await getUserCoordinates()
+        handleChangeCoordinates(coordinates.lat, coordinates.lng)
+    }
+
     useEffect(() => {
-        const positionMap = async () => {
-            const coordinates = await getUserCoordinates()
-            handleChangeCoordinates(coordinates.lat, coordinates.lng)
-        }
-        positionMap()
+        centerToCurrentPosition()
     }, [])
 
     // Using the timeout the fetchfunction is only called
@@ -117,13 +118,19 @@ const submitHandler = (event) => {
                         onChange={typeChangeHandler}
                         value={typeValue}
                     />
-                    <InputRange id='radius' label='Radius' value={radius} onChange={radiusChangeHandler} />
+                    <InputRange 
+                        id='radius'
+                        label='Radius'
+                        value={radius}
+                        onChange={radiusChangeHandler}
+                    />
                     <Map
                         browseMode={true}
                         radius={Number(radius)}
                         coordinates={coordinates}
-                        handleClick={handleChangeCoordinates}
+                        centerMap={handleChangeCoordinates}
                         itemArray={itemArray}
+                        centerToCurrentPosition={centerToCurrentPosition}
                     />
                 </form>
         </>

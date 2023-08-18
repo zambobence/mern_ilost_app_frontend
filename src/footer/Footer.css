@@ -8,3 +8,7 @@ footer {
 footer a {
     color: var(--accent-color)
 }
+
+footer a:hover {
+    color: var(--accent-color)
+}

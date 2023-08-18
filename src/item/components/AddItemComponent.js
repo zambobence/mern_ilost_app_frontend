@@ -15,8 +15,9 @@ import Modal from '../../shared/UI/Modal'
 import AuthCtx from '../../shared/context/auth-context'
 import LostToggler from './LostToggler'
 import Button from '../../shared/UI/Button'
+import ImageUpload from '../../shared/UI/ImageUpload'
 
-export default function ItemFormComponent() {
+export default function AddItemComponent() {
 
     const [lostValue, setLostValue] = useState(true)
     const {value: titleValue, hasError: titleHasError, inputChangeHandler: titleChangeHandler, inputBlurHandler: titleBlurHandler} = 
@@ -34,11 +35,13 @@ export default function ItemFormComponent() {
         setLostValue(prevState => !prevState)
     }
 
+    const centerToCurrentPosition = async () => {
+        const coordinates = await getUserCoordinates()
+        handleChangeCoordinates(coordinates.lat, coordinates.lng)
+    }
+
     useEffect(() => {
-        getUserCoordinates()
-        .then((coordinates) => {
-            handleChangeCoordinates(coordinates.lat, coordinates.lng)
-        })
+        centerToCurrentPosition()
     }, [])
 
   const submitHandler = (event) => {
@@ -49,8 +52,7 @@ export default function ItemFormComponent() {
         type: typeValue,
         color: colorValue,
         timeLost: new Date(),
-        coordinates: coordinates,
-        creator: '64dba9c3381746f82d40948e'
+        coordinates: coordinates
     }
     sendRequest('https://mern-ilost-backend.onrender.com/add-item', 'POST', {'Authorization': `Bearer ${token}`}, data)
 }
@@ -97,7 +99,8 @@ export default function ItemFormComponent() {
                     browseMode={false}
                     radius={Number(radius)}
                     coordinates={coordinates}
-                    handleClick={handleChangeCoordinates}
+                    centerMap={handleChangeCoordinates}
+                    centerToCurrentPosition={centerToCurrentPosition}
                     inputMode
                 />
                 <Button style={{marginTop: '1rem'}} type="submit">Submit</Button>

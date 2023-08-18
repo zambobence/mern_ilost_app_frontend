@@ -14,12 +14,14 @@ import laptopIcon from '../assets/icons/laptopIcon.png'
 import keyIcon from '../assets/icons/keyIcon.png'
 import walletIcon from '../assets/icons/walletIcon.png'
 import etcIcon from '../assets/icons/etcIcon.png'
+import Compass from './Compass'
+import Flex from '../shared/UI/Flex'
 
 function MapComponent(props) {
 	const [ libraries ] = useState(['places']);
 	const [searchResult, setSearchResult] = useState('Result: none')
 	const apiKey = process.env.REACT_APP_GOOGLE_MAPS_API_KEY
-	
+
 	const containerStyle = {
         width: '100%',
         height: '100%',
@@ -67,10 +69,6 @@ function MapComponent(props) {
 		/>
 	)
 
-
-
-
-   
     const onLoad = (autocomplete) => {
 		setSearchResult(autocomplete)
 	}
@@ -84,7 +82,7 @@ function MapComponent(props) {
 				lng: place.geometry.location.lng(),
             }
 			// it centers the map to the new coordinates
-            props.handleClick(newCoordinates.lat, newCoordinates.lng)
+            props.centerMap(newCoordinates.lat, newCoordinates.lng)
         }
 	}
 
@@ -98,13 +96,16 @@ function MapComponent(props) {
 					// and the autocomplete is not shown
 
 					props.cardMode ? null : (
-						<Autocomplete
-							className='searchbar-autocomplete'
-							onPlaceChanged={onPlaceChanged}
-							onLoad={onLoad}
-						>
-							<input className='searchbar-autocomplete-field' type='text' />
-						</Autocomplete>
+						<Flex style={{maxWidth: '300px'}}>
+							<Autocomplete
+								className='searchbar-autocomplete'
+								onPlaceChanged={onPlaceChanged}
+								onLoad={onLoad}
+								>
+								<input className='searchbar-autocomplete-field' type='text' />
+							</Autocomplete>
+							<Compass onClick={props.centerToCurrentPosition} />
+						</Flex>
 					)
 				}
                 <GoogleMap
@@ -119,7 +120,7 @@ function MapComponent(props) {
 					center={props.coordinates}
 					zoom={12}
 					onClick={props.cardMode ? undefined : (e) => {
-                        props.handleClick(e.latLng.lat(), e.latLng.lng());
+                        props.centerMap(e.latLng.lat(), e.latLng.lng());
                     }}
 				>
 					{props.browseMode ? radiusElement : null }
