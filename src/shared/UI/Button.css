@@ -1,3 +1,4 @@
+.btn,
 button {
     font-family: inherit;
     font-size: inherit;
@@ -8,15 +9,17 @@ button {
     background-color: transparent;
     color: black;
     font-weight: 600;
-    display: block;
+    display: inline-block;
     margin: 0 auto .5rem;
 }
 
+.btn,
 button {
     transition: all .2s ease-in-out;
     background-color: var(--accent-color);
 }
 
+.btn:hover,
 button:hover,
 .inverse {
     background-color: black;

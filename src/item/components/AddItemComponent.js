@@ -8,7 +8,6 @@ import Map from '../../map/Map'
 import Container from '../../shared/UI/Container'
 import { useEffect } from 'react'
 import getUserCoordinates from '../../shared/utils/geo-location'
-import useHttpClient from '../../shared/hooks/use-http'
 import LoadingComponent from '../../shared/UI/LoadingComponent'
 import useMap from '../../shared/hooks/use-map'
 import Modal from '../../shared/UI/Modal'
@@ -17,7 +16,7 @@ import LostToggler from './LostToggler'
 import Button from '../../shared/UI/Button'
 import ImageUpload from '../../shared/UI/ImageUpload'
 
-export default function AddItemComponent() {
+export default function AddItemComponent({sendItem, isLoading, errorStatus, clearError}) {
 
     const [lostValue, setLostValue] = useState(true)
     const {value: titleValue, hasError: titleHasError, inputChangeHandler: titleChangeHandler, inputBlurHandler: titleBlurHandler} = 
@@ -26,10 +25,15 @@ export default function AddItemComponent() {
         useSelect(colorArray[0])
     const {value: typeValue, hasError: typeHasError, selectChangeHandler: typeChangeHandler, reset: typeReset} = 
         useSelect(typeArray[0])
+    const [imageValue, setImageValue] = useState(null)
 
-    const {isLoading, errorStatus, clearError, sendRequest} = useHttpClient()
+//    const {isLoading, errorStatus, clearError, sendRequest} = useHttpClient()
     const {coordinates, radius, handleChangeCoordinates} = useMap()
     const {token} = useContext(AuthCtx)
+
+    const handleImageUpload = (image) => {
+        setImageValue(image)
+    }
 
     const toggleLost = () => {
         setLostValue(prevState => !prevState)
@@ -46,16 +50,20 @@ export default function AddItemComponent() {
 
   const submitHandler = (event) => {
     event.preventDefault()
-    const data = {
-        lost: true,
-        title: titleValue,
-        type: typeValue,
-        color: colorValue,
-        timeLost: new Date(),
-        coordinates: coordinates
+
+    const formData = new FormData()
+    formData.append('title', 'titleValue')
+    formData.append('image', imageValue)
+
+    fetch('http://localhost:5000/api/items', {
+        method: 'POST',
+        headers: {},
+        body: formData,
+    })
+    .then(response => console.log(response.json())
+    )
+    .catch(error => console.log(error))
     }
-    sendRequest('https://mern-ilost-backend.onrender.com/add-item', 'POST', {'Authorization': `Bearer ${token}`}, data)
-}
 
 
     return (
@@ -95,6 +103,11 @@ export default function AddItemComponent() {
                     onChange={typeChangeHandler}
                     value={typeValue}
                 />
+                <ImageUpload
+                    imageValue={imageValue}
+                    handleImageUpload={handleImageUpload}
+                />
+
                 <Map
                     browseMode={false}
                     radius={Number(radius)}

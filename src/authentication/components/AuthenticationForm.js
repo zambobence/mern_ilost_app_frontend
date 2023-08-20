@@ -30,7 +30,7 @@ export default function AuthenticationForm(props) {
         if (loginMode){
             try {
             const responseData = await sendRequest(
-                "https://mern-ilost-backend.onrender.com/login",
+                `${process.env.REACT_APP_BACKEND_URL}/login`,
                 "POST",
                 {},
                 {
@@ -44,7 +44,7 @@ export default function AuthenticationForm(props) {
         } else {
             try {
             const responseData = await sendRequest(
-                "https://mern-ilost-backend.onrender.com/register",
+                `${process.env.REACT_APP_BACKEND_URL}/register`,
                 "POST",
                 {},
                 {

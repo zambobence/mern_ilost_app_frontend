@@ -36,7 +36,7 @@ export default function BrowseItemComponent(props) {
             radius: radius,
             coordinates: coordinates,
         }
-        let url = 'https://mern-ilost-backend.onrender.com/items?' + queryBuilder()
+        let url = `${process.env.REACT_APP_BACKEND_URL}/items?${queryBuilder()}`
         const loadedItems = await sendRequest(url, 'POST', {}, data)
         if (loadedItems?.items){
             props.handleLoadedItems(loadedItems?.items)
@@ -77,8 +77,9 @@ const submitHandler = (event) => {
         radius: radius,
         coordinates: coordinates,
     }
+    
 
-    let url = 'https://mern-ilost-backend.onrender.com/items?' + queryBuilder()
+    let url = `${process.env.REACT_APP_BACKEND_URL}/items?${queryBuilder()}`
     sendRequest(url, 'POST', {}, data)
             .then((items) => {
             props.handleLoadedItems(items)

@@ -1,6 +1,6 @@
 import React, {useRef, useState, useEffect} from 'react'
 import './ImageUpload.css'
-const ImageUpload = () => {
+const ImageUpload = (props) => {
 
     const [file, setFile] = useState()
     const [previewUrl, setPreviewUrl] = useState()
@@ -23,6 +23,7 @@ const ImageUpload = () => {
         } else {
             setIsValid(false)
         }
+        props.handleImageUpload(pickedFile)
     }
 
     useEffect(() => {
@@ -52,6 +53,7 @@ const ImageUpload = () => {
                 accept='.jpg,.png,.jpeg'
                 onChange={pickedHandler} 
                 ref={filePickerRef}
+                style={{display: 'none'}}
             />
         </div>
         {previewUrl ?
@@ -59,7 +61,7 @@ const ImageUpload = () => {
             <img src={previewUrl} alt="preview" />
         </div>
         : <p>Please provide an image</p>}
-        <button onClick={pickImgHandler}>Upload image</button>
+        <span className={'btn'} onClick={pickImgHandler}>Upload image</span>
     </>
   )
 }

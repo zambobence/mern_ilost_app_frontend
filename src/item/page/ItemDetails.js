@@ -12,7 +12,7 @@ import CardContent from '../components/card/CardContent'
 import Grid from '../../shared/UI/Grid'
 
 export default function ItemDetails() {
-    const {userId} = useContext(AuthCtx)
+    const {token, userId} = useContext(AuthCtx)
     const {itemId} = useParams()
     const [itemData, setItemData] = useState({})
     const {isLoading, errorStatus, clearError, sendRequest} = useHttpClient()
@@ -20,14 +20,14 @@ export default function ItemDetails() {
 
     useEffect(() => {
           const fetchItem = async () => {
-            const loadedItem = await sendRequest('https://mern-ilost-backend.onrender.com/item/' + itemId)
+            const loadedItem = await sendRequest(`${process.env.REACT_APP_BACKEND_URL}/item/${itemId}`)
             setItemData(loadedItem?.item)
         }
         fetchItem()
     },[])
 
     const deleteItem = async () => {
-        await sendRequest('https://mern-ilost-backend.onrender.com/item/' + itemId, 'DELETE')
+        await sendRequest(`${process.env.REACT_APP_BACKEND_URL}/item/${itemId}`, 'DELETE', {'Authorization': `Bearer ${token}`})
         navigate('/browse-item')
     }
 
