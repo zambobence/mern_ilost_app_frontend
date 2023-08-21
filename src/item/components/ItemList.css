@@ -5,7 +5,8 @@
     padding: 1rem 0;
     display: flex;
     overflow-x: scroll;
-    gap: .5rem
+    gap: .5rem;
+    align-content: flex-start
 }
 
 .no-items {
