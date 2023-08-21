@@ -18,7 +18,7 @@ export default function Profile() {
     const [userData, setUserData] = useState(null)
     const {isLoading, errorStatus, clearError, sendRequest} = useHttpClient()
     const navigate = useNavigate()
-    const {token} = useContext(AuthCtx)
+    const {token, logout} = useContext(AuthCtx)
     useEffect(() => {
         const fetchItem = async () => {
         const loadedItem = await sendRequest(
@@ -36,6 +36,7 @@ export default function Profile() {
             'DELETE',
             {'Authorization': `Bearer ${token}`}
         )
+        logout()
         navigate('/browse-item')
     }
 

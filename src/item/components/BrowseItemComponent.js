@@ -15,6 +15,14 @@ import Compass from '../../map/Compass'
 
 export default function BrowseItemComponent(props) {
 
+    const fetchUrl = process.env.REACT_APP_BACKEND_URL
+    const apiKey = process.env.REACT_APP_GOOGLE_MAPS_API_KEY
+    const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NGUxMWFiMGI0MTg4ZDZmNTBhMWIyZDUiLCJlbWFpbCI6ImJlbmNlQGJlbmNlLmh1IiwiaWF0IjoxNjkyNTgyMTAwfQ.1IMvozJSv9C3CPzAoBCM-v8GL5Q7D8swns8-eiAafc0"
+
+    console.log(fetchUrl)
+    console.log(apiKey)
+
+
     const {value: colorValue, selectChangeHandler: colorChangeHandler, reset: colorReset} = 
         useSelect(colorArray[0])
     const {value: typeValue, selectChangeHandler: typeChangeHandler, reset: typeReset} = 

@@ -6,9 +6,14 @@ export default function useHttpClient() {
 
   const sendRequest = async (url, method = 'GET', headers = {}, body) => {
 
+    console.log('Within the send request hook')
+    console.log(url)
+    console.log(headers)
+    console.log(body)
+
       const requestConfig = {
         method: method,
-        headers: {...headers} ,
+        headers: {...headers} 
       };
 
       if (body instanceof FormData) {
@@ -18,8 +23,10 @@ export default function useHttpClient() {
         requestConfig.body = body;
         console.log(requestConfig.body)
       } else {
-        requestConfig[headers] = {...requestConfig.headers, 'Content-Type': 'application/json'}
-        requestConfig[body] = JSON.stringify(body) || null
+        console.log('It is json')
+        requestConfig.headers = {...requestConfig.headers, 'Content-Type': 'application/json'};
+        requestConfig.body = JSON.stringify(body);
+        console.log(requestConfig)
       }
       try {
         setIsLoading(true);

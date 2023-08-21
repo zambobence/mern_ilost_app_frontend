@@ -39,7 +39,7 @@ export default function AuthenticationForm(props) {
                 },
             )
             console.log(responseData)
-            authCtx.login(responseData?.user.id, responseData?.token)
+            authCtx.login(responseData?.user.userId, responseData?.token)
             } catch(err){}
         } else {
             try {

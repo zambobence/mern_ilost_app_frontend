@@ -10,6 +10,7 @@ import Map from '../../map/Map'
 import AuthCtx from '../../shared/context/auth-context'
 import CardContent from '../components/card/CardContent'
 import Grid from '../../shared/UI/Grid'
+import CreatorData from '../components/CreatorData'
 
 export default function ItemDetails() {
     const {token, userId} = useContext(AuthCtx)
@@ -45,7 +46,9 @@ export default function ItemDetails() {
                     <CardContent item={itemData} />
                     {isCreator ? <CreatorDashBoard
                         handleDelete={deleteItem} /> : null}
+                    {userId && <CreatorData data={itemData.creator} />}
                 </div>
+
                 <Map cardMode coordinates={itemData.coordinateObject}/>
             </Grid>
         </Container>
