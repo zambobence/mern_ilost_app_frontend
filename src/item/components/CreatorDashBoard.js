@@ -4,8 +4,6 @@ import { Link, useParams } from 'react-router-dom'
 
 export default function CreatorDashBoard(props) {
   const {itemId} = useParams()
-  const itemUrl = '/edit-item/' + itemId
-  console.log(itemUrl)
   return (
     <div>
         <Button onClick={props.handleDelete}>Delete</Button>
