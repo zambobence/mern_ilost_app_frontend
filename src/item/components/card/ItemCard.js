@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom'
 
 export default function ItemCard(props) {
     const {item, className} = props
-    console.log(item)
+
   return (
     <div className={`card ${className}`}>
         <Link to={`/item/${item._id}`}>

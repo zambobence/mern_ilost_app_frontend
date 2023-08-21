@@ -2,8 +2,7 @@ function dateParser(dateString) {
     if (dateString === ""){
         return false
     }
-    console.log("Within date parser")
-    console.log(dateString)
+
   // Parse the input date string into a Date object
   const [year, month, day] = dateString.split("-").map(Number);
   const inputDate = new Date(year, month - 1, day); // Month is zero-indexed in Date constructor
@@ -13,7 +12,6 @@ function dateParser(dateString) {
 
   // Compare the input date with the current date
   let isBefore = inputDate < currentDate;
-  console.log('It is before ', isBefore)
   return isBefore
 }
 

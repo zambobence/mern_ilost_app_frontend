@@ -14,7 +14,6 @@ export default function SearchBar() {
 		if (searchResult !== null) {
 			// Fetches the places api of google to get places data
 			const place = searchResult.getPlace()
-            console.log(place)
         }
 	}
 

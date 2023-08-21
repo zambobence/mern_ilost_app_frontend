@@ -11,16 +11,8 @@ import useMap from '../../shared/hooks/use-map'
 import Modal from '../../shared/UI/Modal'
 import InputRange from '../../shared/UI/InputRange'
 import LostToggler from './LostToggler'
-import Compass from '../../map/Compass'
 
 export default function BrowseItemComponent(props) {
-
-    const fetchUrl = process.env.REACT_APP_BACKEND_URL
-    const apiKey = process.env.REACT_APP_GOOGLE_MAPS_API_KEY
-
-    console.log(fetchUrl)
-    console.log(apiKey)
-
 
     const {value: colorValue, selectChangeHandler: colorChangeHandler, reset: colorReset} = 
         useSelect(colorArray[0])

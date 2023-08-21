@@ -3,8 +3,6 @@ import ItemCard from './card/ItemCard'
 import NoItems from './NoItems'
 import './ItemList.css'
 export default function ItemList(props) {
-  console.log(props)
-
     if (props.items?.length === 0 || !props.items){
       return <NoItems />
     } else {
