@@ -17,12 +17,16 @@ import Button from '../../shared/UI/Button'
 import ImageUpload from '../../shared/UI/ImageUpload'
 import useHttpClient from '../../shared/hooks/use-http'
 import { useNavigate } from 'react-router-dom'
+import dateParser from '../../shared/utils/date-parse'
+import { type } from '@testing-library/user-event/dist/type'
 
 export default function AddItemComponent(props) {
 
     const [lostValue, setLostValue] = useState(true)
     const {value: titleValue, hasError: titleHasError, inputChangeHandler: titleChangeHandler, inputBlurHandler: titleBlurHandler} = 
         useInput((title) => title.trim() !== "")
+    const {value: lostDateValue, hasError: lostDateHasError, inputChangeHandler: lostDateChangeHandler, inputBlurHandler: lostDateBlurHandler} = 
+        useInput((value) => dateParser(value))
     const {value: colorValue, hasError: colorHasError, selectChangeHandler: colorChangeHandler, reset: colorReset} = 
         useSelect(colorArray[0])
     const {value: typeValue, hasError: typeHasError, selectChangeHandler: typeChangeHandler, reset: typeReset} = 
@@ -32,9 +36,9 @@ export default function AddItemComponent(props) {
     const {isLoading, errorStatus, clearError, sendRequest} = useHttpClient()
     const {coordinates, radius, handleChangeCoordinates} = useMap()
     const {token} = useContext(AuthCtx)
-
     const navigate = useNavigate()
-    
+
+
     const handleImageUpload = (image) => {
         setImageValue(image)
     }
@@ -109,6 +113,18 @@ export default function AddItemComponent(props) {
                     error="Please select a type"
                     onChange={typeChangeHandler}
                     value={typeValue}
+                />
+                <Input
+                    label={lostValue ? "Lost" : "Found"}
+                    id="lostDate"
+                    isValid={!lostDateHasError}
+                    error="Please provide a valid date"
+                    input={{
+                        type: "date",
+                        value: lostDateValue,
+                        onChange: lostDateChangeHandler,
+                        onBlur:  lostDateBlurHandler
+                    }}
                 />
                 <ImageUpload
                     imageValue={imageValue}

@@ -12,14 +12,25 @@ const inputReducer = (state, action) => {
                 ...state,
                 isTouched: true
             };
+        case "RESET": 
+            return {
+                value: "",
+                isTouched: false
+            };
+        case "FETCH":
+            return {
+                ...state,
+                value: action.val
+            }
+
         default:
             return state;
     }
 }
 
-const useInput = (validator) => {
+const useInput = (validator, initialValue) => {
     const [inputState, dispatch] = useReducer(inputReducer, {
-        value: "",
+        value: initialValue || "",
         isTouched: false,
     });
 
@@ -34,8 +45,13 @@ const useInput = (validator) => {
         dispatch({ type: "TOUCH" });
     };
 
+    const fetchedData = (newVal) => {
+        console.log(newVal)
+        dispatch({type: "FETCH", val: newVal})
+    }
+
     const reset = () => {
-        dispatch({ type: "CHANGE", val: "" });
+        dispatch({ type: "RESET"});
     };
 
     return {
@@ -43,7 +59,8 @@ const useInput = (validator) => {
         hasError,
         inputChangeHandler,
         inputBlurHandler,
-        reset,
+        fetchedData,
+        reset
     };
 }
 

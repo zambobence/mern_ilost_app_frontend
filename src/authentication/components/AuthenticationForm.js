@@ -44,7 +44,7 @@ export default function AuthenticationForm(props) {
         } else {
             try {
             const responseData = await sendRequest(
-                `${process.env.REACT_APP_BACKEND_URL}/register`,
+                `${process.env.REACT_APP_BACKEND_URL}/signup`,
                 "POST",
                 {},
                 {

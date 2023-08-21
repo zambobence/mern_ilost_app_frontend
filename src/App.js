@@ -11,6 +11,8 @@ import AuthCtx from './shared/context/auth-context';
 import useAuth from './shared/hooks/use-auth';
 import Footer from './footer/Footer';
 import { useState } from 'react';
+import EditItem from './item/page/EditItem';
+import EditProfile from './user/pages/EditProfile';
 function App() {
 
   const {token, login, logout, userId} = useAuth()
@@ -24,6 +26,9 @@ function App() {
         <Route path="/add-item" element={<AddItem />} />
         <Route path='/item/:itemId' element={<ItemDetails />} />
         <Route path="/user/:userId" element={<Profile />} />
+
+        <Route path="/edit-user/:userId" element={<EditProfile /> } />
+        <Route path="/edit-item/:itemId" element={<EditItem /> } />
         <Route path="*" element={<Navigate to="/browse" />}/>
     </Routes>
   } else {

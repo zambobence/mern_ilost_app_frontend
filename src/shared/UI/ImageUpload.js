@@ -61,7 +61,7 @@ const ImageUpload = (props) => {
             <img src={previewUrl} alt="preview" />
         </div>
         : <p>Please provide an image</p>}
-        <span className={'btn'} onClick={pickImgHandler}>Upload image</span>
+        <span className={'btn'} style={{maxWidth: "fit-content", margin: ".5rem 0"}} onClick={pickImgHandler}>Upload image</span>
     </>
   )
 }

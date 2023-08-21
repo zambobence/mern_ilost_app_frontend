@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { useNavigate, useParams } from 'react-router-dom'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 import useHttpClient from '../../shared/hooks/use-http'
 import LoadingComponent from '../../shared/UI/LoadingComponent'
 import Modal from '../../shared/UI/Modal'
@@ -20,14 +20,14 @@ export default function Profile() {
     const navigate = useNavigate()
     const {token, logout} = useContext(AuthCtx)
     useEffect(() => {
-        const fetchItem = async () => {
+        const fetchUser = async () => {
         const loadedItem = await sendRequest(
             `${process.env.REACT_APP_BACKEND_URL}/user/${userId}`,
             'GET',
             {'Authorization': `Bearer ${token}`})
             setUserData(loadedItem?.user)
         }
-        fetchItem()
+        fetchUser()
     },[])
 
     const deleteProfile = async () => {
@@ -51,7 +51,9 @@ export default function Profile() {
                             <Title>Profile</Title>
                             <Avatar />
                             <PersonalData userData={userData} />
-                            <Button style={{marginTop: "1rem"}} onClick={deleteProfile}>Delete Profile</Button>
+                            <Button style={{marginTop: "1rem", width: 'fit-content'}} onClick={deleteProfile}>Delete Profile</Button>
+                            <Link to={`/edit-user/${userId}`} className={'btn inverse'} style={{marginTop: "1rem", width: 'fit-content'}}>Edit User</Link>
+                        
                         </div>
                         <div className='col-2'>
                             <Title>Your Items</Title>

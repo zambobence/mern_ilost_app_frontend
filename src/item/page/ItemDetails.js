@@ -33,7 +33,11 @@ export default function ItemDetails() {
     }
 
     let isCreator = false
-    isCreator = itemData?.creator === userId
+    const creatorId = itemData?.creator?.id
+    if (!creatorId){
+        isCreator = false
+    }
+    isCreator = itemData?.creator?._id === userId
 
   return (
     <>
@@ -44,12 +48,13 @@ export default function ItemDetails() {
                 <div className='col'>
                     <ItemImage src={itemData.imageUrl} alt={itemData.title}/>
                     <CardContent item={itemData} />
+                    {userId && <CreatorData data={itemData.creator} />}
                     {isCreator ? <CreatorDashBoard
                         handleDelete={deleteItem} /> : null}
-                    {userId && <CreatorData data={itemData.creator} />}
                 </div>
 
                 <Map cardMode coordinates={itemData.coordinateObject}/>
+
             </Grid>
         </Container>
     </>
