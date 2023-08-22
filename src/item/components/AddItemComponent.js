@@ -21,6 +21,7 @@ import dateParser from '../../shared/utils/date-parse'
 import { type } from '@testing-library/user-event/dist/type'
 
 export default function AddItemComponent(props) {
+    const [successStatus, setSuccessStatus] = useState(null)
 
     const [lostValue, setLostValue] = useState(true)
     const {value: titleValue, hasError: titleHasError, inputChangeHandler: titleChangeHandler, inputBlurHandler: titleBlurHandler} = 
@@ -60,7 +61,7 @@ export default function AddItemComponent(props) {
     event.preventDefault()
 
     const formData = new FormData()
-    formData.append('title', 'titleValue')
+    formData.append('title', titleValue)
     formData.append('lost', lostValue)
     formData.append('type', typeValue)
     formData.append('color', colorValue)
@@ -68,19 +69,24 @@ export default function AddItemComponent(props) {
     formData.append('image', imageValue)
 
     sendRequest(
-        'http://localhost:5000/add-item',
+        `${process.env.REACT_APP_BACKEND_URL}/add-item`,
         'POST',
         {'Authorization': `Bearer ${token}`},
         formData,
     )
-    navigate('/browse')
+    setSuccessStatus('Item added correcty')
+    setTimeout(() => {
+        setSuccessStatus(null)
+        navigate('/browse')
+    }, 1500)
 }
 
 
     return (
     <>
+        {successStatus && <Modal success show={successStatus} content={successStatus}/>}
         {isLoading && <LoadingComponent />}
-        {errorStatus && <Modal show={errorStatus} clearModal={clearError} content={errorStatus} />}
+        {errorStatus && <Modal error show={errorStatus} clearModal={clearError} content={errorStatus} />}
         <Container>
             <form onSubmit={submitHandler}>
                 <LostToggler lost={lostValue} toggleLost={toggleLost} />

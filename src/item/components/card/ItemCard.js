@@ -8,7 +8,7 @@ export default function ItemCard(props) {
     const {item, className} = props
 
   return (
-    <div className={`card ${className}`}>
+    <div className={`card ${className}`} style={{}}>
         <Link to={`/item/${item._id}`}>
           <CardImg src={item.imageUrl} alt={item.title} />
           <CardContent item={item} />

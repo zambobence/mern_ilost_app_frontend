@@ -14,6 +14,7 @@ import { useNavigate, useParams } from 'react-router-dom'
 export default function EditUserComponent(props) {
 
     const {userId} = useParams()
+    const [successStatus, setSuccessStatus] = useState(null)
     const [userData, setUserData] = useState({
         first_name: "",
         last_name: "",
@@ -55,9 +56,11 @@ export default function EditUserComponent(props) {
                 phone: phoneValue
             }
         )
+        setSuccessStatus('User profile changed correctly.')
         setTimeout(() => {
+            setSuccessStatus(null)
             navigate(`/user/${userId}`)
-        }, 1000)
+        }, 1500)
     }
 
     useEffect(() => {
@@ -72,8 +75,9 @@ export default function EditUserComponent(props) {
 
     return (
         <>
+        {!errorStatus && successStatus && !isLoading && <Modal success show={successStatus} content={successStatus}/>}
         {isLoading && <LoadingComponent />}
-        {errorStatus && <Modal show={errorStatus} clearModal={clearError} content={errorStatus} />}
+        {errorStatus && <Modal error show={errorStatus} clearModal={clearError} content={errorStatus} />}
         <Container>
             <form onSubmit={submitHandler}>
                 <Input

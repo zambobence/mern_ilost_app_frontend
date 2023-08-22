@@ -14,6 +14,7 @@ import { useNavigate, useParams } from 'react-router-dom'
 export default function EditItemComponent(props) {
 
     const {itemId} = useParams()
+    const [successStatus, setSuccessStatus] = useState(null)
     const [itemData, setItemData] = useState({
         title: ""
     })
@@ -48,9 +49,11 @@ export default function EditItemComponent(props) {
                 title: titleValue,
             }
         )
+        setSuccessStatus('Item changed correcty')
         setTimeout(() => {
+            setSuccessStatus(null)
             navigate(`/item/${itemId}`)
-        }, 1000)
+        }, 2000)
     }
 
     useEffect(() => {
@@ -62,8 +65,9 @@ export default function EditItemComponent(props) {
 
     return (
         <>
+        {successStatus && <Modal success show={successStatus} content={successStatus}/>}
         {isLoading && <LoadingComponent />}
-        {errorStatus && <Modal show={errorStatus} clearModal={clearError} content={errorStatus} />}
+        {errorStatus && <Modal error show={errorStatus} clearModal={clearError} content={errorStatus} />}
         <Container>
             <form onSubmit={submitHandler}>
                 <Input

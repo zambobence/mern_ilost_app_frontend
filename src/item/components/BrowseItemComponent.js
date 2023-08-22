@@ -11,6 +11,7 @@ import useMap from '../../shared/hooks/use-map'
 import Modal from '../../shared/UI/Modal'
 import InputRange from '../../shared/UI/InputRange'
 import LostToggler from './LostToggler'
+import { useNavigate } from 'react-router-dom'
 
 export default function BrowseItemComponent(props) {
 
@@ -97,7 +98,7 @@ const submitHandler = (event) => {
     return (
         <>
             {isLoading && <LoadingComponent />}
-            {errorStatus && <Modal show={errorStatus} clearModal={clearError} content={errorStatus} />}
+            {errorStatus && <Modal error show={errorStatus} error clearModal={clearError} content={errorStatus} />}
                 <form onSubmit={submitHandler}>
                     <LostToggler lost={lostValue} toggleLost={toggleLost} />
                     <Select

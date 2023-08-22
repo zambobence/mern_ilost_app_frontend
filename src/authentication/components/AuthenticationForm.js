@@ -38,8 +38,7 @@ export default function AuthenticationForm(props) {
                     password: passwordValue
                 },
             )
-            console.log(responseData)
-            authCtx.login(responseData?.user.userId, responseData?.token)
+                authCtx.login(responseData?.user.userId, responseData?.token)
             } catch(err){}
         } else {
             try {
@@ -63,7 +62,7 @@ export default function AuthenticationForm(props) {
     return (
         <>
         {isLoading && <LoadingComponent />}
-        {!isLoading && errorStatus && <Modal show={errorStatus} clearModal={clearError} content={errorStatus} />}
+        {!isLoading && errorStatus && <Modal error show={errorStatus} clearModal={clearError} content={errorStatus} />}
         <Container>
             <form className={`authentication-form center`} style={{width: 'fit-content'}} onSubmit={authenticationSubmitHandler}>
                 <Input

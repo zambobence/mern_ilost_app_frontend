@@ -11,9 +11,6 @@
     box-shadow: 0 0 1rem rgba(0, 0, 0, 0.3);
 }
 
-.card-content {
-    padding: .5rem;
-}
 
 .card-content h2 {
     font-weight: 500;

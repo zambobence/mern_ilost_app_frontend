@@ -42,7 +42,7 @@ export default function ItemDetails() {
   return (
     <>
         {isLoading && <LoadingComponent />}
-        {errorStatus && <Modal show={errorStatus} clearModal={clearError} content={errorStatus} />}
+        {errorStatus && <Modal error show={errorStatus} clearModal={clearError} content={errorStatus} />}
         <Container>
             <Grid>
                 <div className='col'>
